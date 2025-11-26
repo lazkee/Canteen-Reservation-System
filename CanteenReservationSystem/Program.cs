@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
-namespace CanteenReservationSystem;
 using Application.Students;
 using Infrastructure.Services;
+using Application.Canteens;
+using Application.Auth;
+
+namespace CanteenReservationSystem;
 public class Program
 {
     public static void Main(string[] args)
@@ -19,7 +22,10 @@ public class Program
         options.UseInMemoryDatabase("CanteenReservationDb"));
 
         builder.Services.AddScoped<IStudentService, StudentService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddSingleton<CanteenValidator>();
 
+        builder.Services.AddScoped<ICanteenService, CanteenService>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

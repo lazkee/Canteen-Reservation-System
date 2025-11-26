@@ -1,4 +1,4 @@
-﻿@CanteenReservationSystem_HostAddress = http://localhost:5270
+﻿@CanteenReservationSystem_HostAddress = http://localhost:8080
 
 GET {{CanteenReservationSystem_HostAddress}}/weatherforecast/
 Accept: application/json

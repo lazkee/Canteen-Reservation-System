@@ -26,7 +26,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/makolazic/Desktop/Canteen-Reservation-System/Domain/Domain.csproj": {
+                "projectPath": "/Users/makolazic/Desktop/Canteen-Reservation-System/Domain/Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

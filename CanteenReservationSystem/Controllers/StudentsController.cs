@@ -4,6 +4,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CanteenReservationSystem.Controllers
 {
@@ -26,15 +27,20 @@ namespace CanteenReservationSystem.Controllers
             {
                 return BadRequest(ModelState);
             }
-            //bla bla
 
-            var result = await _studentService.CreateAsync(request);
-
-            return CreatedAtAction(
-                nameof(GetStudentById),
-                new { id = result.Id },
-                result
+            try
+            {
+                var result = await _studentService.CreateAsync(request);
+                return CreatedAtAction(
+                    nameof(GetStudentById),
+                    new { id = result.Id },
+                    result
                 );
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]

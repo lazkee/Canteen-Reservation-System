@@ -11,8 +11,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Students\" />
+    <None Remove="Canteens\" />
+    <None Remove="Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Students\" />
+    <Folder Include="Canteens\" />
+    <Folder Include="Auth\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 </Project>

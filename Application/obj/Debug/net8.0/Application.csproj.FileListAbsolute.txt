@@ -11,3 +11,6 @@
 /Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/refint/Application.dll
 /Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.pdb
 /Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/ref/Application.dll
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/bin/Debug/net8.0/Domain.dll
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/bin/Debug/net8.0/Domain.pdb
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Applicat.44B5EDA2.Up2Date
