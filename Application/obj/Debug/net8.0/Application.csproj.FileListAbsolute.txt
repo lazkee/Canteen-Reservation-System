@@ -1,0 +1,13 @@
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/bin/Debug/net8.0/Application.deps.json
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/bin/Debug/net8.0/Application.dll
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/bin/Debug/net8.0/Application.pdb
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.csproj.AssemblyReference.cache
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.AssemblyInfoInputs.cache
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.AssemblyInfo.cs
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.csproj.CoreCompileInputs.cache
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.sourcelink.json
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.dll
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/refint/Application.dll
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/Application.pdb
+/Users/makolazic/Desktop/Canteen-Reservation-System/Application/obj/Debug/net8.0/ref/Application.dll

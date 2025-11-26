@@ -9,7 +9,7 @@ namespace Infrastructure.Data
 		public DbSet<Canteen> Canteens { get; set; }
 		public DbSet<Reservation> Reservations { get; set; }
 
-		public CanteenDbContext(DbContextOptions<CanteenDbContext> options):base()
+		public CanteenDbContext(DbContextOptions<CanteenDbContext> options):base(options)
 		{
 		}
 

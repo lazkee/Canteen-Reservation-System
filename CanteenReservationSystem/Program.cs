@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 namespace CanteenReservationSystem;
-
+using Application.Students;
+using Infrastructure.Services;
 public class Program
 {
     public static void Main(string[] args)
@@ -16,6 +17,8 @@ public class Program
         //In-memory db
         builder.Services.AddDbContext<CanteenDbContext>(options =>
         options.UseInMemoryDatabase("CanteenReservationDb"));
+
+        builder.Services.AddScoped<IStudentService, StudentService>();
 
         var app = builder.Build();
 

@@ -9,4 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Students\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Students\" />
+  </ItemGroup>
 </Project>
