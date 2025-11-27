@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Auth;
 using Application.Canteens;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace CanteenReservationSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("canteens")]
     public class CanteensController : Controller
     {
         private readonly ICanteenService _canteenService;
@@ -25,7 +24,9 @@ namespace CanteenReservationSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCanteen([FromHeader(Name = "studentId")] string studentId, [FromBody] CreateCanteenRequest request)
+        public async Task<IActionResult> CreateCanteen(
+            [FromHeader(Name = "studentId")] string studentId,
+            [FromBody] CreateCanteenRequest request)
         {
             if (!await _authService.IsStudentAdminAsync(studentId))
                 return StatusCode(403, "Only admins can add new canteens");
@@ -46,7 +47,7 @@ namespace CanteenReservationSystem.Controllers
             {
                 return BadRequest(new { error = ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500, new { error = "An unexpected error occurred." });
             }
@@ -55,18 +56,32 @@ namespace CanteenReservationSystem.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCanteenById(string id)
         {
-            var result = await _canteenService.GetByIdAsync(id);
-            if (result is null)
-                return NotFound();
-            return Ok(result);
+            try
+            {
+                var result = await _canteenService.GetByIdAsync(id);
+                if (result is null)
+                    return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCanteens()
         {
-            var result = await _canteenService.GetCanteensAsync();
-
-            return Ok(result);
+            try
+            {
+                var result = await _canteenService.GetCanteensAsync();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
 
         [HttpPut("{id}")]
@@ -85,49 +100,104 @@ namespace CanteenReservationSystem.Controllers
             if (validationErrors.Any())
                 return BadRequest(validationErrors);
 
-            var result = await _canteenService.UpdateAsync(id, request); 
-            if (result is null)
-                return NotFound();
+            try
+            {
+                var result = await _canteenService.UpdateAsync(id, request);
+                if (result is null)
+                    return NotFound();
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCanteen([FromRoute] string id, [FromHeader(Name = "studentId")] string studentId)
+        public async Task<IActionResult> DeleteCanteen(
+            [FromRoute] string id,
+            [FromHeader(Name = "studentId")] string studentId)
         {
             if (!await _authService.IsStudentAdminAsync(studentId))
                 return StatusCode(403, "Only admins can delete canteens");
 
-            var deleted = await _canteenService.DeleteAsync(id);
-            if (!deleted)
-                return NotFound();
+            try
+            {
+                var deleted = await _canteenService.DeleteAsync(id);
+                if (!deleted)
+                    return NotFound();
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
 
-        [HttpGet("{id}/status")]
-        public async Task<IActionResult> GetCanteenStatus(
-            string id,
-            [FromQuery] DateOnly startDate,
-            [FromQuery] DateOnly endDate,
-            [FromQuery] TimeOnly startTime,
-            [FromQuery] TimeOnly endTime,
-            [FromQuery] uint duration)
 
+        [HttpGet("status")]
+        public async Task<IActionResult> GetCanteenStatus(
+                [FromQuery] DateOnly startDate,
+                [FromQuery] DateOnly endDate,
+                [FromQuery] TimeOnly startTime,
+                [FromQuery] TimeOnly endTime,
+                [FromQuery] uint duration)
         {
-            var errors = _canteenValidator.ValidateStatusRequest(startDate, endDate, startTime,
-                endTime, duration);
+            var errors = _canteenValidator.ValidateStatusRequest(
+                startDate, endDate, startTime, endTime, duration);
 
             if (errors.Any())
                 return BadRequest(errors);
 
-            var status = await _canteenService.GetRemainingCapacityAsync(id, startDate, endDate, startTime, endTime, duration);
-            if (status == null)
-                return NotFound();
+            try
+            {
+                var statusList = await _canteenService.GetRemainingCapacityAsync(
+                    startDate, endDate, startTime, endTime, duration);
 
-            return Ok(status);
+                return Ok(statusList);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
+
+        [HttpGet("{id}/status")]
+        public async Task<IActionResult> GetCanteenStatusForOne(
+                [FromRoute] string id,
+                [FromQuery] DateOnly startDate,
+                [FromQuery] DateOnly endDate,
+                [FromQuery] TimeOnly startTime,
+                [FromQuery] TimeOnly endTime,
+                [FromQuery] uint duration)
+        {
+            var errors = _canteenValidator.ValidateStatusRequest(
+                startDate, endDate, startTime, endTime, duration);
+
+            if (errors.Any())
+                return BadRequest(errors);
+
+            try
+            {
+                var status = await _canteenService.GetRemainingCapacityForCanteenAsync(
+                    id, startDate, endDate, startTime, endTime, duration);
+
+                if (status is null)
+                    return NotFound();
+
+                return Ok(status);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
+        }
+
+
+
+
 
     }
 }
-

@@ -13,11 +13,13 @@
     <None Remove="Students\" />
     <None Remove="Canteens\" />
     <None Remove="Auth\" />
+    <None Remove="Reservations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Students\" />
     <Folder Include="Canteens\" />
     <Folder Include="Auth\" />
+    <Folder Include="Reservations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

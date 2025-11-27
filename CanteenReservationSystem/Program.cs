@@ -4,6 +4,8 @@ using Application.Students;
 using Infrastructure.Services;
 using Application.Canteens;
 using Application.Auth;
+using Application.Reservations;
+
 
 namespace CanteenReservationSystem;
 public class Program
@@ -22,10 +24,13 @@ public class Program
         options.UseInMemoryDatabase("CanteenReservationDb"));
 
         builder.Services.AddScoped<IStudentService, StudentService>();
-        builder.Services.AddScoped<IAuthService, AuthService>();
-        builder.Services.AddSingleton<CanteenValidator>();
 
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
+        builder.Services.AddSingleton<CanteenValidator>();
         builder.Services.AddScoped<ICanteenService, CanteenService>();
+
+        builder.Services.AddScoped<IReservationService, ReservationService>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

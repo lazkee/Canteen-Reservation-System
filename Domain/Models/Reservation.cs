@@ -36,7 +36,7 @@ namespace Domain.Models
         public Reservation()
         {
             ReservationId = Guid.NewGuid();
-            Status = ReservationStatus.ACTIVE;
+            Status = ReservationStatus.Active;
         }
 
         public Reservation(Guid studentId, Guid canteenId, DateOnly date, TimeOnly time, uint duration)

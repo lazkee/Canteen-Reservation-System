@@ -61,6 +61,11 @@ public class CanteenValidator
     {
         var errors = new List<string>();
 
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        if (startDate < today)
+            errors.Add("startDate cannot be in the past.");
+
         if (startDate > endDate)
             errors.Add("startDate must be less than or equal to endDate.");
 

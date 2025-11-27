@@ -1,8 +1,5 @@
-﻿using Infrastructure.Data;
-using Application.Students;
-using Domain.Models;
+﻿using Application.Students;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -19,18 +16,16 @@ namespace CanteenReservationSystem.Controllers
             _studentService = studentService;
         }
 
-        // POST /students
         [HttpPost]
         public async Task<IActionResult> CreateStudent([FromBody] CreateStudentRequest request)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             try
             {
                 var result = await _studentService.CreateAsync(request);
+
                 return CreatedAtAction(
                     nameof(GetStudentById),
                     new { id = result.Id },
@@ -41,19 +36,27 @@ namespace CanteenReservationSystem.Controllers
             {
                 return BadRequest(new { error = ex.Message });
             }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudentById(string id)
         {
-            var result = await _studentService.GetByIdAsync(id);
-            if (result is null)
-                return NotFound();
+            try
+            {
+                var result = await _studentService.GetByIdAsync(id);
+                if (result is null)
+                    return NotFound();
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
         }
-
-
-
     }
 }
